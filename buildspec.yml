@@ -16,4 +16,6 @@ artifacts:
   files:
     - target/Library-0.0.1-SNAPSHOT.jar
     - appspec.yml
+    - scripts/start-process.sh
+    - scripts/stop-process.sh
   discard-paths: yes
