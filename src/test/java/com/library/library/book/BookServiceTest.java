@@ -19,9 +19,9 @@ class BookServiceTest {
         assertThat(books)
                 .isNotEmpty()
                 .containsExactlyInAnyOrderElementsOf(Arrays.asList(
-                        new Book(1L, "Ogniem i mieczem", "Henryk Sienkiewicz", "23 grudnia 1884"),
-                        new Book(2L, "Potop", "Henryk Sienkiewicz", "17 marca 1886"),
-                        new Book(3L, "Harry Potter", "J.K. Rowling", "26 czerwca 1997")
+                        new Book(1L, "Ogniem i mieczem", "Henryk Sienkiewicz", "December 23, 1884"),
+                        new Book(2L, "Potop", "Henryk Sienkiewicz", "March 17, 1886"),
+                        new Book(3L, "Harry Potter", "J.K. Rowling", "June 26, 1997")
                 ));
     }
 }
