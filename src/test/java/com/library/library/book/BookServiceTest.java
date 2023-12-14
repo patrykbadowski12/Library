@@ -24,4 +24,16 @@ class BookServiceTest {
                         new Book(3L, "Harry Potter", "J.K. Rowling", "June 26, 1997")
                 ));
     }
+
+    @Test
+    void createBook() {
+        // given
+        final var book = new Book(null, "Test Book", "Test Title", "January 12, 1952");
+
+        // when
+        bookService.createBook(book);
+
+        // then
+        assertThat(bookService.getBooks()).hasSize(4);
+    }
 }

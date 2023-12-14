@@ -16,7 +16,7 @@ class BookService {
 
     final private DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 
-    private List<BookEntity> books = Arrays.asList(
+    private final List<BookEntity> books = Arrays.asList(
             new BookEntity(1L, "Ogniem i mieczem", "Henryk Sienkiewicz", LocalDate.of(1884, 12, 23)),
             new BookEntity(2L, "Potop", "Henryk Sienkiewicz", LocalDate.of(1886, 3, 17)),
             new BookEntity(3L, "Harry Potter", "J.K. Rowling", LocalDate.of(1997, 6, 26))
@@ -26,6 +26,11 @@ class BookService {
         return books.stream()
                 .map(this::mapBookEntityToBook)
                 .collect(Collectors.toList());
+    }
+
+    void createBook(final Book book) {
+        final var bookEntity = new BookEntity((long) (books.size() + 1), book.getTitle(), book.getAuthor(), LocalDate.parse(book.getReleaseDate(), dateFormat));
+        books.add(bookEntity);
     }
 
     private Book mapBookEntityToBook(final BookEntity bookEntity) {

@@ -1,7 +1,10 @@
 package com.library.library.book;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +18,14 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    List<Book> getBooks() {
-        return bookService.getBooks();
+    ResponseEntity<List<Book>> getBooks() {
+        return ResponseEntity.ok(bookService.getBooks());
     }
+
+    @PostMapping
+    ResponseEntity createBook(@RequestBody final Book book) {
+        bookService.createBook(book);
+        return ResponseEntity.ok().build();
+    }
+    
 }
