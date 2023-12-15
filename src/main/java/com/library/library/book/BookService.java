@@ -9,6 +9,8 @@ import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,9 +20,9 @@ class BookService {
     final private DateTimeFormatter dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG);
 
     private final List<BookEntity> books = new ArrayList<>(Arrays.asList(
-            new BookEntity(1L, "Ogniem i mieczem", "Henryk Sienkiewicz", LocalDate.of(1884, 12, 23)),
-            new BookEntity(2L, "Potop", "Henryk Sienkiewicz", LocalDate.of(1886, 3, 17)),
-            new BookEntity(3L, "Harry Potter", "J.K. Rowling", LocalDate.of(1997, 6, 26))
+            new BookEntity(UUID.randomUUID(), "Ogniem i mieczem", "Henryk Sienkiewicz", LocalDate.of(1884, 12, 23)),
+            new BookEntity(UUID.randomUUID(), "Potop", "Henryk Sienkiewicz", LocalDate.of(1886, 3, 17)),
+            new BookEntity(UUID.randomUUID(), "Harry Potter", "J.K. Rowling", LocalDate.of(1997, 6, 26))
     ));
 
     List<Book> getBooks() {
@@ -29,8 +31,15 @@ class BookService {
                 .collect(Collectors.toList());
     }
 
+    Optional<Book> getBookById(final String id) {
+        return books.stream()
+                .filter(bookEntity -> bookEntity.getId().toString().equals(id))
+                .map(this::mapBookEntityToBook)
+                .findFirst();
+    }
+
     void createBook(final Book book) {
-        final var bookEntity = new BookEntity((long) (books.size() + 1), book.getTitle(), book.getAuthor(), LocalDate.parse(book.getReleaseDate(), dateFormat));
+        final var bookEntity = new BookEntity(UUID.randomUUID(), book.getTitle(), book.getAuthor(), LocalDate.parse(book.getReleaseDate(), dateFormat));
         books.add(bookEntity);
     }
 
