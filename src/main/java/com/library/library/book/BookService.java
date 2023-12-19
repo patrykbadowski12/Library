@@ -43,6 +43,10 @@ class BookService {
         books.add(bookEntity);
     }
 
+    void removeBookById(final String id) {
+        books.removeIf(bookEntity -> bookEntity.getId().toString().equals(id));
+    }
+
     private Book mapBookEntityToBook(final BookEntity bookEntity) {
         return Book.builder()
                 .id(bookEntity.getId())
@@ -51,5 +55,4 @@ class BookService {
                 .releaseDate(dateFormat.format(bookEntity.getReleaseDate()))
                 .build();
     }
-
 }

@@ -54,4 +54,14 @@ class BookServiceTest {
         // then
         assertThat(bookService.getBooks()).hasSize(4);
     }
+
+    @Test
+    void removeBookById() {
+        // given
+        final var book = bookService.getBooks().stream().findFirst().get();
+
+        bookService.removeBookById(book.getId().toString());
+
+        assertThat(bookService.getBooks()).doesNotContain(book);
+    }
 }
